@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="main-footer" style = "color:black;">
+
+
+    <!-- تفاصيل الطالب -->
+        <h1>تفاصيل الطالب</h1>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">الصورة</th>
+                    <td><img src="{{ student.image.url }}" alt="{{ student.full_name }}" width="200"></td>
+                </tr>
+                <tr>
+                    <th scope="row">الاسم الرباعي</th>
+                    <td>{{ student.full_name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">رقم الهوية</th>
+                    <td>{{ student.national_id }}</td>
+                </tr>
+                <!-- إضافة المزيد من التفاصيل حسب احتياجاتك -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock content %}
+
+

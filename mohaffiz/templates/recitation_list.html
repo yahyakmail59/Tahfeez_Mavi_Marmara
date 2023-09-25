@@ -1,0 +1,38 @@
+
+    {% extends 'base.html' %}
+
+
+    {% block content %}
+    
+        <div class="main-footer" style = "color:black;">
+       
+    <!-- قائمة السرد -->
+        <h1>قائمة السرد</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">السورة</th>
+                    <th scope="col">الجزء</th>
+                    <th scope="col">تاريخ السرد</th>
+                    <!-- إضافة المزيد من العناوين العمودية حسب احتياجاتك -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for recitation in recitations %}
+                <tr>
+                    <td>{{ recitation.surah }}</td>
+                    <td>{{ recitation.part }}</td>
+                    <td>{{ recitation.date }}</td>
+                    <!-- إضافة المزيد من الحقول حسب احتياجاتك -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+    {% endblock content %}
+    
+    
+    
+    

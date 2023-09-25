@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <!-- قائمة المحفظين -->
+    <div class="main-footer" style = "color:black;">
+  <!-- تفاصيل الاختبار -->
+
+    <h1>تفاصيل الاختبار</h1><br>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">معلومات الاختبار</h5><br>
+            <p class="card-text">عدد الأجزاء: {{ test.parts_count }}</p>
+            <p class="card-text">الجزء الابتدائي: {{ test.initial_part_number }}</p>
+            <p class="card-text">الجزء النهائي: {{ test.final_part_number }}</p>
+            <p class="card-text">تاريخ الاختبار: {{ test.test_date }}</p>
+            <p class="card-text">النتيجة: %{{ test.result }}</p>
+            <!-- إضافة المزيد من المعلومات حسب احتياجاتك -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+    
+
+

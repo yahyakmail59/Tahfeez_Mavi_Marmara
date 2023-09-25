@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="main-footer" style = "color:black;">
+
+
+    <!-- قائمة الطلاب -->
+        <h1>قائمة الطلاب</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">الصورة</th>
+                    <th scope="col">الاسم الرباعي</th>
+                    <th scope="col">رقم الهوية</th>
+                    <!-- إضافة المزيد من العناوين العمودية حسب احتياجاتك -->
+                    <th scope="col">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td><img src="{{ student.image.url }}" alt="{{ student.full_name }}" width="100"></td>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.national_id }}</td>
+                    <!-- إضافة المزيد من الحقول حسب احتياجاتك -->
+                    <td>
+                        <a href="{% url 'student_detail' student.id %}" class="btn btn-info btn-sm">تفاصيل</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock content %}
+
+

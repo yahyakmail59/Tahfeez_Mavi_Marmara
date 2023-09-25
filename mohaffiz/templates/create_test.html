@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <!-- -->
+    <div class="main-footer" style = "color:black;">
+    <!-- إنشاء معلم -->
+
+        <h1>إنشاء اختبار جديد</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">عنوان الاختبار</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="start_part" class="form-label">الجزء الابتدائي</label>
+                <input type="number" class="form-control" id="start_part" name="start_part" required>
+            </div>
+            <div class="mb-3">
+                <label for="end_part" class="form-label">الجزء النهائي</label>
+                <input type="number" class="form-control" id="end_part" name="end_part" required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">تاريخ الاختبار</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="result" class="form-label">النتيجة</label>
+                <input type="number" class="form-control" id="result" name="result" required>
+            </div>
+            <button type="submit" class="btn btn-primary">إنشاء الاختبار</button>
+        </form>
+    </div>
+
+
+
+
+{% endblock content %}
+

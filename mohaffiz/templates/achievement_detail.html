@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+        <!-- تفاصيل الإنجاز -->
+        <div class="container mt-5">
+            <h1>تفاصيل الإنجاز</h1>
+            <div class="card" style="width: 18rem;">
+                <img src="{{ achievement.image.url }}" class="card-img-top" alt="{{ achievement.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ achievement.name }}</h5>
+                    <p class="card-text">{{ achievement.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">الشهادة: {{ achievement.certificate }}</li>
+                    <li class="list-group-item">تاريخ الإنجاز: {{ achievement.date }}</li>
+                    <!-- إضافة المزيد من الحقول حسب احتياجاتك -->
+                </ul>
+            </div>
+        </div>
+    
+        <!-- تضمين Bootstrap 5 JavaScript ومكتبات السيطرة على النماذج وما إلى ذلك -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-2SKs35zZ3l5O3Lkc5U5m48U7M0/6Ht02EoBrCtwpqyIq13FquF2F5BKt5v5Z5hFJ" crossorigin="anonymous"></script>
+        <!-- تضمين مكتبة jQuery (إذا لزم الأمر) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous"></script>
+    
+{% endblock content %}
+    

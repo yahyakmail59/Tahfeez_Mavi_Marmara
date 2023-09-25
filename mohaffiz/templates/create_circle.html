@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<!-- إنشاء حلقة -->
+<div class="main-footer mt-5" style = "color:black;">
+   <center> <h1>إضافة حلقة</h1></center>
+    <form method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <center><button type="submit" class="btn btn-primary">إضافة</button></center>
+        {% endbuttons %}
+    </form>
+</div>
+
+{% endblock content %}

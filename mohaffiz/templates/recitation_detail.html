@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <!-- -->
+    <div class="main-footer" style = "color:black;">
+    <!-- تفاصيل السرد -->
+
+        <h1>تفاصيل السرد</h1>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">معلومات السرد</h5>
+                <p class="card-text">السورة: {{ recitation.surah }}</p>
+                <p class="card-text">الجزء: {{ recitation.part }}</p>
+                <p class="card-text">تاريخ السرد: {{ recitation.date }}</p>
+                <!-- إضافة المزيد من المعلومات حسب احتياجاتك -->
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+
+

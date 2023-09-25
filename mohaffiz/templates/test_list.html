@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="main-footer" style = "color:black;">
+
+    <!-- قائمة الاختبارات -->
+
+        <h1>قائمة الاختبارات</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">عدد الأجزاء</th>
+                    <th scope="col">الجزء الابتدائي</th>
+                    <th scope="col">الجزء النهائي</th>
+                    <th scope="col">تاريخ الاختبار</th>
+                    <th scope="col">النتيجة</th>
+                    <!-- إضافة المزيد من العناوين العمودية حسب احتياجاتك -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for test in tests %}
+                <tr>
+                    <td>{{ test.parts_count }}</td>
+                    <td>{{ test.initial_part_number }}</td>
+                    <td>{{ test.final_part_number }}</td>
+                    <td>{{ test.test_date }}</td>
+                    <td>% {{ test.result }}</td>
+                    <!-- إضافة المزيد من الحقول حسب احتياجاتك -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    {% endblock content %}
+    

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 main-footer mt-5">
+    <center><h3 style="color: black;">تفاصيل المحفظ</h3></center>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>صورة المحفظ</td>
+                                <td>{{ teacher.image }}</td>
+                            </tr>
+                            <tr>
+                                <td>اسم المحفظ</td>
+                                <td>{{ teacher.full_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>رقم الهوية</td>
+                                <td>{{ teacher.id_number }}</td>
+                            </tr>
+                            <tr>
+                                <td>تاريخ الميلاد</td>
+                                <td>{{ teacher.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <td>العنوان</td>
+                                <td>{{teacher.address }}</td>
+                            </tr>
+                            <tr>
+                                <td>الجوال</td>
+                                <td>{{teacher.personal_mobile }}</td>
+                            </tr>
+                            <tr>
+                                <td>عدد أيام الغياب</td>
+                                <td>{{ teacher.Monthly_absence }}</td>
+                            </tr>
+                            <tr>
+                                <td>الحلقة</td>
+                                <td>{{ teacher.circle }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'circle_update' circle.id %}" class="btn btn-info">تعديل</a>
+                    <a href="{% url 'circle_delete' circle.id %}" class="btn btn-danger">حذف</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- تضمين Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+<!-- تضمين Bootstrap 5 JavaScript ومكتبات السيطرة على النماذج وما إلى ذلك -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-2SKs35zZ3l5O3Lkc5U5m48U7M0/6Ht02EoBrCtwpqyIq13FquF2F5BKt5v5Z5hFJ" crossorigin="anonymous"></script>
+<!-- تضمين مكتبة jQuery (إذا لزم الأمر) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous"></script>
+
+{% endblock content %}

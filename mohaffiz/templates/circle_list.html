@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <!-- العنوان والزر لإنشاء حلقة جديدة -->
+
+    
+    <div class="main-footer">
+        <h1 style="text-align: center;">قائمة الحلقات</h1>
+        <br>
+        <a href="{% url 'create_circle' %}" class="btn btn-primary">إنشاء حلقة جديدة</a>
+    </div>
+
+    <!-- عرض قائمة الحلقات -->
+    <div class="main-footer">
+        <table style="color:black;text-align: center;" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">اسم الحلقة</th>
+                    <th scope="col">المسجد</th>
+                    <th scope="col">العنوان</th>
+                    <th scope="col">وقت تفعيل الحلقة</th>
+                    <th scope="col">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for circle in circles %}
+                <tr>
+                    <td>{{ circle.name }}</td>
+                    <td>{{ circle.masjed_name }}</td>
+                    <td>{{ circle.address }}</td>
+                    <td>{{ circle.work_schedule }}</td>
+                    <td>
+                        <a href="{% url 'circle_detail' circle.id %}" class="btn btn-info btn-dark btn-sm">تفاصيل</a>
+                        <a href="{% url 'circle_update' circle.id %}" class="btn btn-info btn-sm">تعديل</a>
+                        <a href="{% url 'circle_delete' circle.id %}" class="btn btn-danger btn-sm">حذف</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- تضمين Bootstrap 5 JavaScript ومكتبات السيطرة على النماذج وما إلى ذلك -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-2SKs35zZ3l5O3Lkc5U5m48U7M0/6Ht02EoBrCtwpqyIq13FquF2F5BKt5v5Z5hFJ" crossorigin="anonymous"></script>
+    <!-- تضمين مكتبة jQuery (إذا لزم الأمر) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous"></script>
+
+
+{% endblock content %}
+    

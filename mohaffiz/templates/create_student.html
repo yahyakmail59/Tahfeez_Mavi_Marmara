@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <!-- -->
+    <div class="main-footer" style = "color:black;">
+
+        <h1>إنشاء طالب جديد</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="full_name" class="form-label">الاسم الكامل</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="national_id" class="form-label">الرقم الوطني</label>
+                <input type="text" class="form-control" id="national_id" name="national_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="birthdate" class="form-label">تاريخ الميلاد</label>
+                <input type="date" class="form-control" id="birthdate" name="birthdate" required>
+            </div>
+            <button type="submit" class="btn btn-primary">إنشاء الطالب</button>
+        </form>
+    </div>
+
+
+
+{% endblock content %}
+    

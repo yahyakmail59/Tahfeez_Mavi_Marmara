@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="main-footer" style = "color:black;">
+
+    <!-- تضمين Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous">
+    <!-- أسلوب CSS لتزيين الصفحة -->
+    <style>
+        .table-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .table-header th {
+            border: none;
+        }
+        .table-header th:first-child {
+            border-top-left-radius: 5px;
+        }
+        .table-header th:last-child {
+            border-top-right-radius: 5px;
+        }
+        .table-header th, .table-data td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+    <!-- لائحة الشرف -->
+
+        <h1>لائحة الشرف</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>أفضل الطلاب</h2>
+                <table class="table table-bordered table-header">
+                    <thead>
+                        <tr>
+                            <th>المرتبة</th>
+                            <th>اسم الطالب</th>
+                            <th>الحضور الشهري</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- يمكنك تكرار البيانات هنا -->
+                        <!-- مثال: -->
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>اسم الطالب 1</td>
+                            <td>90%</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h2>أفضل المعلمين</h2>
+                <table class="table table-bordered table-header">
+                    <thead>
+                        <tr>
+                            <th>المرتبة</th>
+                            <th>اسم المعلم</th>
+                            <th>الحضور الشهري</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- يمكنك تكرار البيانات هنا -->
+                        <!-- مثال: -->
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>اسم المعلم 1</td>
+                            <td>95%</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h2>أفضل الحلقات</h2>
+                <table class="table table-bordered table-header">
+                    <thead>
+                        <tr>
+                            <th>المرتبة</th>
+                            <th>اسم الحلقة</th>
+                            <th>عدد الطلاب</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- يمكنك تكرار البيانات هنا -->
+                        <!-- مثال: -->
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>اسم الحلقة 1</td>
+                            <td>50</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock content %}
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <!-- -->
+    <div class="main-footer" style = "color:black;">
+
+    <!-- إنشاء سرد -->
+
+        <h1>إنشاء سرد جديد</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="student" class="form-label">اختر الطالب</label>
+                <select class="form-select" id="student" name="student" required>
+                    <!-- هنا يمكنك إضافة خيارات الطلاب من قاعدة البيانات -->
+                    <!-- مثال: <option value="1">اسم الطالب 1</option> -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="surah" class="form-label">اختر السورة</label>
+                <select class="form-select" id="surah" name="surah" required>
+                    <!-- هنا يمكنك إضافة خيارات السور من قاعدة البيانات -->
+                    <!-- مثال: <option value="1">اسم السورة 1</option> -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="start_verse" class="form-label">الآية البداية</label>
+                <input type="number" class="form-control" id="start_verse" name="start_verse" required>
+            </div>
+            <div class="mb-3">
+                <label for="end_verse" class="form-label">الآية النهائية</label>
+                <input type="number" class="form-control" id="end_verse" name="end_verse" required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">تاريخ السرد</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">إنشاء السرد</button>
+        </form>
+    </div>
+
+
+{% endblock content %}
+    

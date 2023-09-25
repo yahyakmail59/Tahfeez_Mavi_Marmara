@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <!-- -->
+    <div class="main-footer" style = "color:black;">
+        <h1>إنشاء إنجاز جديد</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">عنوان الإنجاز</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">وصف الإنجاز</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">إنشاء الإنجاز</button>
+            
+        </form>
+    </div>
+
+
+{% endblock content %}
+    
