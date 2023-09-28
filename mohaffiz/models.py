@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime,timedelta,date
+from django.utils import timezone
 
 class Circle(models.Model):
     name = models.CharField('اسم الحلقة',max_length=100)
     masjed_name = models.CharField('اسم المسجد',max_length=100)
     address = models.TextField('عنوان المسجد',)
     work_schedule = models.CharField('وقت تفعيل الحلقة',max_length=255)
-    # teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Teacher(models.Model):
     address = models.TextField('عنوان السكن',)
     personal_mobile = models.CharField('رقم الجوال',max_length=15)
     Monthly_absence = models.PositiveIntegerField('عدد أيام الغياب',default=0)
-    circle = models.ForeignKey(Circle, on_delete=models.CASCADE, related_name='teachers')
+    circle = models.ForeignKey(Circle, on_delete=models.CASCADE, related_name='teachers', verbose_name="اختر الحلقة")
     
     
     def __str__(self):
@@ -37,23 +37,85 @@ class Student(models.Model):
     personal_mobile = models.CharField('رقم الجوال الشخصي (اختياري)', max_length=15, blank=True, null=True)
     guardian_mobile = models.CharField('رقم جوال ولي الأمر', max_length=15)
     current_hifz = models.CharField('الحفظ الحالي',max_length=100)
-    # combined_tests =models.PositiveIntegerField('عدد الإختبارات المجتمعة',default=0)# You may want to create a separate model for this
     education_stage = models.CharField('المستوى الدراسي',max_length=100)
     Monthly_absence = models.PositiveIntegerField('عدد أيام الغياب',default=0)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='students')
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='students', verbose_name="اختر المحفظ")
+    
+    
     def __str__(self):
         return self.full_name
 
+
+part_counts = [(str(i), str(i)) for i in range(1, 31)]
+# initial_part_number_counts = [(str(i), str(i)) for i in range(1, 31)]
+# final_part_number_counts = [(str(i), str(i)) for i in range(1, 31)]
+parts_name = [
+    ('الأول', 'الأول'),
+    ('الثاني', 'الثاني'),
+    ('الثالث', 'الثالث'),
+    ('الرابع', 'الرابع'),
+    ('الخامس', 'الخامس'),
+    ('السادس', 'السادس'),
+    ('السابع', 'السابع'),
+    ('الثامن', 'الثامن'),
+    ('التاسع', 'التاسع'),
+    ('العاشر', 'العاشر'),
+    ('الحادي عشر', 'الحادي عشر'),
+    ('الثاني عشر', 'الثاني عشر'),
+    ('الثالث عشر', 'الثالث عشر'),
+    ('الرابع عشر', 'الرابع عشر'),
+    ('الخامس عشر', 'الخامس عشر'),
+    ('السادس عشر', 'السادس عشر'),
+    ('السابع عشر', 'السابع عشر'),
+    ('الثامن عشر', 'الثامن عشر'),
+    ('التاسع عشر', 'التاسع عشر'),
+    ('العشرون', 'العشرون'),
+    ('الواحد والعشرون', 'الواحد والعشرون'),
+    ('الثاني والعشرون', 'الثاني والعشرون'),
+    ('الثالث والعشرون', 'الثالث والعشرون'),
+    ('الرابع والعشرون', 'الرابع والعشرون'),
+    ('الخامس والعشرون', 'الخامس والعشرون'),
+    ('السادس والعشرون', 'السادس والعشرون'),
+    ('السابع والعشرون', 'السابع والعشرون'),
+    ('الثامن والعشرون', 'الثامن والعشرون'),
+    ('التاسع والعشرون', 'التاسع والعشرون'),
+    ('الثلاثون', 'الثلاثون')
+]
+
+
 class Test(models.Model):
-    parts_count = models.PositiveIntegerField('عدد الأجزاء')
-    initial_part_number = models.PositiveIntegerField('من بداية جزء')
-    final_part_number = models.PositiveIntegerField('إلى نهاية جزء')
-    test_date = models.DateField('تاريخ الإختبار',default=datetime.now())
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="اختر الطالب")
+    parts_count = models.CharField('عدد الأجزاء',choices=part_counts,max_length=10)
+    initial_part_number = models.CharField('من بداية الجزء',choices=parts_name,max_length=30)
+    final_part_number = models.CharField('إلى نهاية الجزء',choices=parts_name,max_length=30)
+    test_date = models.DateTimeField('تاريخ الإختبار',default=timezone.now)
     result = models.IntegerField('معدل الإختبار')
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return f"اختبار للطالب {self.student.full_name} من جزء {self.initial_part_number} إلى جزء {self.final_part_number}"
+    
+
+
+class DailySaving(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="اختر الطالب")
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="اختر المحفظ"), 
+    name = models.CharField('اختر السورة',max_length=100)
+    ayat_number = models.PositiveIntegerField('رقم آية البداية')
+    ayat_number2 = models.PositiveIntegerField('رقم آية النهاية')
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+class DailyReview(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="اختر الطالب")
+    name = models.CharField('اختر السورة',max_length=100)
+    ayat_number = models.PositiveIntegerField('رقم آية البداية')
+    ayat_number2 = models.PositiveIntegerField('رقم آية النهاية')
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 # class Recitation(models.Model):
 #     surah = models.CharField(max_length=255)

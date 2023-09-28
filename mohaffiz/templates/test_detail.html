@@ -1,30 +1,62 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-    <!-- قائمة المحفظين -->
-    <div class="main-footer" style = "color:black;">
-  <!-- تفاصيل الاختبار -->
+<div class="container mt-4 main-footer mt-5">
+    <center><h3 style="color: black;">تفاصيل الإختبار</h3></center>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
 
-    <h1>تفاصيل الاختبار</h1><br>
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">معلومات الاختبار</h5><br>
-            <p class="card-text">عدد الأجزاء: {{ test.parts_count }}</p>
-            <p class="card-text">الجزء الابتدائي: {{ test.initial_part_number }}</p>
-            <p class="card-text">الجزء النهائي: {{ test.final_part_number }}</p>
-            <p class="card-text">تاريخ الاختبار: {{ test.test_date }}</p>
-            <p class="card-text">النتيجة: %{{ test.result }}</p>
-            <!-- إضافة المزيد من المعلومات حسب احتياجاتك -->
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>مقدم الإختبار</td>
+                                <td>{{ test.student }}</td>
+                            </tr>
+                            <tr>
+                                <td>عدد الأجزاء</td>
+                                <td>{{ test.parts_count }}</td>
+                            </tr>
+                            <tr>
+                                <td>الجزء الابتدائي</td>
+                                <td>{{ test.initial_part_number }}</td>
+                            </tr>
+                            <tr>
+                                <td>الجزء النهائي</td>
+                                <td>{{ test.final_part_number }}</td>
+                            </tr>
+                            <tr>
+                                <td>تاريخ الاختبار</td>
+                                <td>{{ test.test_date|date:"Y/m/d" }}</td>
+                            </tr>
+                            <tr>
+                                <td>نتيجة الإختبار</td>
+                                <td>{{ test.result }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'test_update' test.id %}" class="btn btn-info">تعديل</a>
+                    <a href="{% url 'test_delete' test.id %}" class="btn btn-danger">حذف</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-
-
-
+<!-- تضمين Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+<!-- تضمين Bootstrap 5 JavaScript ومكتبات السيطرة على النماذج وما إلى ذلك -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-2SKs35zZ3l5O3Lkc5U5m48U7M0/6Ht02EoBrCtwpqyIq13FquF2F5BKt5v5Z5hFJ" crossorigin="anonymous"></script>
+<!-- تضمين مكتبة jQuery (إذا لزم الأمر) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous"></script>
 
 {% endblock content %}
+
     
 
 

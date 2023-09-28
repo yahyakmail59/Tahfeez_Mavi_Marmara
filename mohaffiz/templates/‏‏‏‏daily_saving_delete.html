@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+  .card-title {
+    float: right;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;}
+    
+.p-3 {
+    padding: 2rem!important;
+}
+</style>
+
+<div style="direction: rtl;" class="wrapper">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div   class="content-wrapper">
+      <!-- Content Header (Page header) -->
+  <div  class="card card-danger">
+      <div class="card-header">
+       <center><h3 class="card-title";">قرار نهائي بالحذف</h3></center> 
+      </div>
+      <!-- /.card-header -->  
+      <!-- form start -->
+      <form  method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="row">
+          
+       <p class="p-3">هل أنت متأكد من عملية الحذف؟</p>
+   
+        </div>
+        <!-- /.card-body -->
+  
+        <div class="card-footer">
+          <button type="submit" class="btn btn-danger">حذف</button>
+  
+          <a href="{% url 'daily_saving_list' %}" type="button" class="btn btn-primary">تراجع</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+{% endblock content %}
+    

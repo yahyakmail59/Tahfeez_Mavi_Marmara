@@ -1,5 +1,5 @@
 from django import forms
-from .models import Circle, Teacher, Student, Test
+from .models import Circle, Teacher, Student, Test,DailySaving
 
 class CircleForm(forms.ModelForm):
     class Meta:
@@ -42,6 +42,16 @@ class TestForm(forms.ModelForm):
     class Meta:
         model = Test
         fields = '__all__'
+        widgets = {
+            'test_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+        
+class DailySavingForm(forms.ModelForm):
+    class Meta:
+        model = DailySaving
+        fields = ['student']
+        
+
         
 # class AchievementForm(forms.ModelForm):
 #     class Meta:

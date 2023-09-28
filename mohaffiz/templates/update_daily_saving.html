@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                {% csrf_token %}
+                <h2 class="mb-3">تعديل البيانات</h2>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">السورة:</label>
+                    <select id="name" name="name" class="form-select">
+                        <option value="{{ daily_saving.name }}">{{ daily_saving.name }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ayat_number" class="form-label">من الآية:</label>
+                    <select id="ayat_number" name="ayat_number" class="form-select">
+                        <option value="{{ daily_saving.ayat_number }}">{{ daily_saving.ayat_number }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ayat_number2" class="form-label">إلى الآية:</label>
+                    <select id="ayat_number2" name="ayat_number2" class="form-select">
+                        <option value="{{ daily_saving.ayat_number2 }}">{{ daily_saving.ayat_number2 }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    {% bootstrap_form form %}
+                </div>
+                
+                <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // استدعاء API للحصول على بيانات السور
+    fetch('http://api.alquran.cloud/v1/surah')
+        .then(response => response.json())
+        .then(data => {
+            const nameSelect = document.getElementById("name");
+            const ayatNumberSelect = document.getElementById("ayat_number");
+            const ayatNumber2Select = document.getElementById("ayat_number2");
+
+            // Create a default option element with null value
+            const defaultOption = document.createElement("option");
+            defaultOption.value = ""; // Set the value to an empty string or any suitable value
+            defaultOption.textContent = "اختر السورة"; // Set the label for the default option
+            nameSelect.appendChild(defaultOption);
+
+            // ملء قائمة السور باستخدام البيانات من الاستجابة
+            data.data.forEach(surah => {
+                const option = document.createElement("option");
+                option.value = surah.name;
+                option.textContent = surah.name;
+                nameSelect.appendChild(option);
+            });
+
+            // معالجة تغيير اختيار السورة
+            nameSelect.addEventListener("change", () => {
+                const selectedName = nameSelect.value;
+                const selectedSurah = data.data.find(surah => surah.name === selectedName);
+                if (selectedSurah) {
+                    // إعادة تعيين القيم الافتراضية للقائمتين المنسدلتين
+                    ayatNumberSelect.innerHTML = '';
+                    ayatNumber2Select.innerHTML = '';
+
+                    // ملء القائمتين المنسدلتين بأرقام الآيات
+                    for (let i = 1; i <= selectedSurah.numberOfAyahs; i++) {
+                        const option1 = document.createElement("option");
+                        const option2 = document.createElement("option");
+                        option1.value = i;
+                        option1.textContent = i;
+                        option2.value = i;
+                        option2.textContent = i;
+                        ayatNumberSelect.appendChild(option1);
+                        ayatNumber2Select.appendChild(option2);
+                    }
+
+                    // تمكين القائمتين المنسدلتين بعد ملء البيانات
+                    ayatNumberSelect.disabled = false;
+                    ayatNumber2Select.disabled = false;
+                } else {
+                    // في حالة عدم تحديد سورة، يتم تعطيل القائمتين المنسدلتين
+                    ayatNumberSelect.disabled = true;
+                    ayatNumber2Select.disabled = true;
+                }
+            });
+        })
+        .catch(error => console.error('حدث خطأ أثناء جلب البيانات:', error));
+</script>
+{% endblock content %}

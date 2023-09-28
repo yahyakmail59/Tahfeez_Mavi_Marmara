@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.db.models import Count
-from .models import Circle, Teacher, Student, Test
-from .forms import CircleForm, TeacherForm, StudentForm, TestForm
+from .models import Circle, Teacher, Student, Test,DailySaving
+from .forms import CircleForm, TeacherForm, StudentForm, TestForm,DailySavingForm
 from django.db.models import Sum
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime, timedelta, date
 from django.conf import settings
 from django.db.models import Q
+from django.http import JsonResponse
 
 # Create your views here.
 # def home_view(request):
@@ -137,25 +138,40 @@ def test_detail(request, test_id):
     test = get_object_or_404(Test, pk=test_id)
     return render(request, "test_detail.html", {"test": test})
 
+def test_update(request, id):
+    test_id = Test.objects.get(id=id)
+    if request.method == "POST":
+        test_save = TestForm(request.POST, request.FILES, instance=test_id)
+        if test_save.is_valid():
+            test_save.save()
+            return redirect("test_list")
+    else:
+        test_save = TestForm(instance=test_id)
+    context = {
+        "form": test_save,
+    }
 
-# def achievement_list(request):
-#     achievements = Achievement.objects.all()
-#     return render(request, 'achievement_list.html', {'achievements': achievements})
-
-# def achievement_detail(request, achievement_id):
-#     achievement = get_object_or_404(Achievement, pk=achievement_id)
-#     return render(request, 'achievement_detail.html', {'achievement': achievement})
-
-
-# def recitation_list(request):
-#     recitations = Recitation.objects.all()
-#     return render(request, 'recitation_list.html', {'recitations': recitations})
-
-# def recitation_detail(request, recitation_id):
-#     recitation = get_object_or_404(Recitation, pk=recitation_id)
-#     return render(request, 'recitation_detail.html', {'recitation': recitation})
+    return render(request, "teacher_update.html", context)
 
 
+def test_delete(request, id):
+    test_delete = get_object_or_404(Test, id=id)
+    if request.method == "POST":
+        test_delete.delete()
+        return redirect("test_list")
+
+    return render(request, "test_delete.html")
+
+def create_test(request):
+    if request.method == "POST":
+        form = TestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("test_list")
+    else:
+        form = TestForm()
+
+    return render(request, "create_test.html", {"form": form})
 
 
 
@@ -183,16 +199,87 @@ def create_student(request):
     return render(request, "create_student.html", {"form": form})
 
 
-def create_test(request):
-    if request.method == "POST":
-        form = TestForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("test_list")
-    else:
-        form = TestForm()
 
-    return render(request, "create_test.html", {"form": form})
+def daily_saving_list(request):
+    daily_saving = DailySaving.objects.all()
+    return render(request, "daily_saving_list.html", {"daily_saving": daily_saving})
+
+
+
+
+def update_daily_saving(request, id):
+    daily_saving = get_object_or_404(DailySaving, id=id)
+
+    if request.method == 'POST':
+        form = DailySavingForm(request.POST, instance=daily_saving)
+
+        if form.is_valid():
+            if  request.POST.get('name') and request.POST.get('ayat_number') and request.POST.get('ayat_number2'):
+                DailySaving.objects.filter(id=id).update(name = request.POST.get('name'),
+                                                     ayat_number = request.POST.get('ayat_number'),
+                                                     ayat_number2 = request.POST.get('ayat_number2'))
+            form.save()
+            form = daily_saving
+            return redirect('daily_saving_list')  # تحويل إلى الصفحة المناسبة بعد التحديث
+    else:
+        form = DailySavingForm(instance=daily_saving)
+        
+    return render(request, 'update_daily_saving.html', {'form': form,'daily_saving':daily_saving})
+
+
+
+def daily_saving_delete(request, id):
+    daily_saving_delete = get_object_or_404(DailySaving, id=id)
+    if request.method == "POST":
+        daily_saving_delete.delete()
+        return redirect("daily_saving_list")
+
+
+
+def create_daily_saving(request):
+    if request.method == 'POST':
+        form = DailySavingForm(request.POST)
+        if form.is_valid():
+            # Get the student instance from the form cleaned data
+            student = form.cleaned_data['student']
+
+            # Retrieve other form data
+            name = request.POST.get('name')
+            ayat_number = request.POST.get('ayat_number')
+            ayat_number2 = request.POST.get('ayat_number2')
+
+            # Create a DailySaving instance with the student and other form data
+            daily_saving = DailySaving(
+                student=student,
+                name=name,
+                ayat_number=ayat_number,
+                ayat_number2=ayat_number2
+            )
+            daily_saving.save()
+
+            return redirect('daily_saving_list')  # Redirect to a success page or any other appropriate action
+    else:
+        form = DailySavingForm()
+    return render(request, "create_daily_saving.html", {"form": form})
+
+
+# def achievement_list(request):
+#     achievements = Achievement.objects.all()
+#     return render(request, 'achievement_list.html', {'achievements': achievements})
+
+# def achievement_detail(request, achievement_id):
+#     achievement = get_object_or_404(Achievement, pk=achievement_id)
+#     return render(request, 'achievement_detail.html', {'achievement': achievement})
+
+
+# def recitation_list(request):
+#     recitations = Recitation.objects.all()
+#     return render(request, 'recitation_list.html', {'recitations': recitations})
+
+# def recitation_detail(request, recitation_id):
+#     recitation = get_object_or_404(Recitation, pk=recitation_id)
+#     return render(request, 'recitation_detail.html', {'recitation': recitation})
+
 
 
 # def create_achievement(request):

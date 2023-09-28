@@ -6,12 +6,12 @@
 
 <!-- إنشاء حلقة -->
 <div class="main-footer mt-5" style = "color:black;">
-   <center> <h1>إضافة اختبار</h1></center>
+   <center> <h1>تعديل البيانات</h1></center>
     <form method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <center><button type="submit" class="btn btn-primary">إضافة</button></center>
+            <center><button type="submit" class="btn btn-primary">تحديث البيانات</button></center>
         {% endbuttons %}
     </form>
 </div>

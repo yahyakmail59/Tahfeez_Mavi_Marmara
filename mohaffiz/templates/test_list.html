@@ -2,37 +2,60 @@
 
 
 {% block content %}
-    <div class="main-footer" style = "color:black;">
+    <!-- العنوان والزر لإنشاء حلقة جديدة -->
 
-    <!-- قائمة الاختبارات -->
+    
+    <div class="main-footer">
+        <h1 style="text-align: center;">قائمة الاختبارات</h1>
+        <br>
+        <a href="{% url 'create_test' %}" class="btn btn-primary">إضافة إختبار</a>
+    </div>
 
-        <h1>قائمة الاختبارات</h1>
-        <table class="table">
+    <!-- عرض قائمة الحلقات -->
+    <div class="main-footer">
+        <table style="color:black;text-align: center;" class="table">
             <thead>
                 <tr>
+                    <th scope="col">مقدم الإختبار</th>
                     <th scope="col">عدد الأجزاء</th>
                     <th scope="col">الجزء الابتدائي</th>
                     <th scope="col">الجزء النهائي</th>
                     <th scope="col">تاريخ الاختبار</th>
                     <th scope="col">النتيجة</th>
+                    <th scope="col">إجراءات</th>
                     <!-- إضافة المزيد من العناوين العمودية حسب احتياجاتك -->
                 </tr>
             </thead>
             <tbody>
                 {% for test in tests %}
                 <tr>
+                    <td>{{ test.student }}</td>
                     <td>{{ test.parts_count }}</td>
                     <td>{{ test.initial_part_number }}</td>
                     <td>{{ test.final_part_number }}</td>
-                    <td>{{ test.test_date }}</td>
-                    <td>% {{ test.result }}</td>
+                    <td>{{ test.test_date|date:"Y/m/d" }}</td>
+                    <td>{{ test.result }}%</td>
                     <!-- إضافة المزيد من الحقول حسب احتياجاتك -->
+                    
+                    <td>
+                        <a href="{% url 'test_detail' test.id %}" class="btn btn-info btn-sm"><i class="fas fa-info-circle"></i></a>
+                        <a href="{% url 'test_update' test.id %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'test_delete' test.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
+    <!-- تضمين Bootstrap 5 JavaScript ومكتبات السيطرة على النماذج وما إلى ذلك -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-2SKs35zZ3l5O3Lkc5U5m48U7M0/6Ht02EoBrCtwpqyIq13FquF2F5BKt5v5Z5hFJ" crossorigin="anonymous"></script>
+    <!-- تضمين مكتبة jQuery (إذا لزم الأمر) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+uMPhJ8SnGExs3Wp3Rt5jc5xjPmG7wqzj5EJ7KC8b5ZYjN/t" crossorigin="anonymous"></script>
 
-    {% endblock content %}
+
+{% endblock content %}
+    
+
     
